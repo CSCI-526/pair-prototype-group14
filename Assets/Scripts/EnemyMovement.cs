@@ -2,26 +2,50 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMove : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
-    public float speed = 2.0f;  // 敌人移动速度
-    private Transform target;   // 目标点（终点）
-    private bool isDamaged = false; // **防止重复触发**
+    private bool isDamaged = false;
+
+    public Transform[] waypoints;
+    public float moveSpeed = 3f;
+    private int currentIndex = 0;
+
+    public float HP = 100f;
+    
+    private Renderer enemyRenderer;
+    private Color startColor = HexToColor("#FF5733");
+    private Color endColor = HexToColor("#33FF57");
+    public float duration = 3.0f;
 
     void Start()
     {
-        GameObject endTriggerObject = GameObject.Find("EndTrigger");
-        if (endTriggerObject != null)
-        {
-            target = endTriggerObject.transform;
-        }
+        enemyRenderer = transform.GetComponent<Renderer>();
+        enemyRenderer.material.color = Color.red;
     }
 
     void Update()
     {
-        if (target != null && !isDamaged)
+        if(currentIndex < waypoints.Length){
+            Transform targetPoint = waypoints[currentIndex];
+            transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, moveSpeed * Time.deltaTime);
+            if(Vector3.Distance(transform.position, targetPoint.position) < 0.1f){
+                currentIndex++;
+                // HP -= 30;
+            }
+        } else {
+            // 到达终点，可以在这里添加触发事件（如扣血）等逻辑
+            // Destroy(gameObject);
+            // Debug.Log(gameObject.name + " destroy");
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        HP -= damage;
+        Debug.Log("Enemy HP: " + HP);
+        if (HP <= 0)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            DestroyEnemy();
         }
     }
 
@@ -31,26 +55,35 @@ public class EnemyMove : MonoBehaviour
 
         if (other.gameObject.CompareTag("EndTrigger"))
         {
-            //Debug.Log(gameObject.name + " 进入 EndTrigger，造成伤害！");
-
-            isDamaged = true;  // **防止重复扣血**
-
-            // 造成伤害
+            isDamaged = true;
             EndTrigger endTrigger = other.GetComponent<EndTrigger>();
             if (endTrigger != null)
             {
                 endTrigger.TakeDamage(1);
             }
+            Debug.Log(gameObject.name + " make 1 damage");
 
-            // **停止移动**
-            StopEnemy();
+            DestroyEnemy();
         }
     }
 
-    void StopEnemy()
+    void DestroyEnemy()
     {
-        //Debug.Log(gameObject.name + " 停止移动！");
-        speed = 0; // **速度归零**
-        transform.position += new Vector3(0.5f, 0, 0); // **稍微移动到终点后方**
+        Debug.Log(gameObject.name + " destroy animation");
+        float t = Mathf.PingPong(Time.time / duration, 1);
+        enemyRenderer.material.color = Color.Lerp(startColor, endColor, t);
+        Destroy(gameObject);
+        Debug.Log(gameObject.name + " destroy");
+
+    }
+
+    private static Color HexToColor(string hex)
+    {
+        Color color;
+        if (ColorUtility.TryParseHtmlString(hex, out color))
+        {
+            return color;
+        }
+        return Color.white;
     }
 }

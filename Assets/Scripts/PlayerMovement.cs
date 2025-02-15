@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float gridSize = 1f;
 
     private bool isMoving;
+
     void Start()
     {
 
@@ -47,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
 
     private IEnumerator Move(Vector2 direction)
     {
