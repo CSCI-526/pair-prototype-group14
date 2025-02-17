@@ -152,32 +152,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52957ceeb6dea9446a5e746d1558b7c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyWaves:
-  - enemyPrefab: {fileID: 7555119872342227830, guid: d1f52a7eacb8a2a419019a7b36587b7f, type: 3}
-    enemyCount: 5
-    spawnPoint: {fileID: 462381696}
-    timeBetweenEnemies: 0.5
-    path:
-    - {fileID: 1748695687}
-    timeAfterWave: 5
-  - enemyPrefab: {fileID: 7555119872342227830, guid: d1f52a7eacb8a2a419019a7b36587b7f, type: 3}
-    enemyCount: 5
-    spawnPoint: {fileID: 462381696}
-    timeBetweenEnemies: 0.5
-    path:
-    - {fileID: 647839543}
-    - {fileID: 1988832612}
-    - {fileID: 505023528}
-    - {fileID: 2091134391}
-    - {fileID: 1748695687}
-    timeAfterWave: 5
-  - enemyPrefab: {fileID: 7555119872342227830, guid: d1f52a7eacb8a2a419019a7b36587b7f, type: 3}
-    enemyCount: 5
-    spawnPoint: {fileID: 462381696}
-    timeBetweenEnemies: 0.5
-    path:
-    - {fileID: 1748695687}
-    timeAfterWave: 5
+  enemyPrefab: {fileID: 462381693}
+  spawnPoint: {fileID: 0}
+  path1: []
+  path2: []
+  path3: []
+  totalWaves: 3
+  enemiesPerWave: 10
+  timeBetweenWaves: 5
+  timeBetweenEnemies: 0.5
 --- !u!212 &462381695
 SpriteRenderer:
   m_ObjectHideFlags: 0
