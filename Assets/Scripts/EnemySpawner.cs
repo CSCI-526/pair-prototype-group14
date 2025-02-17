@@ -1,65 +1,57 @@
 using UnityEngine;
 using System.Collections;
 
-public class EnemySpawner : MonoBehaviour {
-    [Header("怪物生成配置")]
-    public GameObject enemyPrefab;
-    public Transform spawnPoint;
+public class EnemySpawner : MonoBehaviour 
+{
+    [Header("Total Enemy Waves Configration")]
+    public Wave[] enemyWaves;
 
-    // 预设3条路
-    public Transform[] path1;
-    public Transform[] path2;
-    public Transform[] path3;
+    [System.Serializable]
+    public class Wave
+    {
+        [Header("Configuration Per Wave")]
+        public GameObject enemyPrefab;           // 敌人类型
+        public int enemyCount;                   // 这一波的敌人数量
+        public Transform spawnPoint;             // 敌人出生点
+        public float timeBetweenEnemies = 0.5f;  // 同一波内怪物生成的间隔
+        public Transform[] path;                 // 敌人路径点
+        public float timeAfterWave = 5f;         // 与下一波的间隔时间
+    }
 
-    [Header("波次配置")]
-    public int totalWaves = 3;               // 总波数
-    public int enemiesPerWave = 10;          // 每波怪物数量
-    public float timeBetweenWaves = 5f;      // 两波之间的间隔时间
-    public float timeBetweenEnemies = 0.5f;  // 同一波内怪物生成的间隔
-
-    void Start(){
+    void Start()
+    {
         StartCoroutine(SpawnWaves());
     }
 
-    IEnumerator SpawnWaves(){
-        for(int wave = 0; wave < totalWaves; wave++){
-            Transform[] selectedPath = ChoosePath(wave);
-
-            for(int i = 0; i < enemiesPerWave; i++){
-                GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
-                enemy.GetComponent<Enemy>().waypoints = selectedPath;
-                yield return new WaitForSeconds(timeBetweenEnemies);
+    IEnumerator SpawnWaves()
+    {
+        for(int wave = 0; wave < enemyWaves.Length; wave++)
+        {
+            Wave waveConfig = enemyWaves[wave];
+            for(int i = 0; i < waveConfig.enemyCount; i++)
+            {
+                GameObject enemy = Instantiate(waveConfig.enemyPrefab, waveConfig.spawnPoint.position, Quaternion.identity);
+                enemy.GetComponent<Enemy>().waypoints = waveConfig.path;
+                yield return new WaitForSeconds(waveConfig.timeBetweenEnemies);
             }
-            yield return new WaitForSeconds(timeBetweenWaves);
+            yield return new WaitForSeconds(waveConfig.timeAfterWave);
         }
-        int enemyCount = FindObjectsOfType<Enemy>().Length;
-        Debug.Log("当前场上敌人数量:" + enemyCount);
-        while(enemyCount > 0){
-            yield return new WaitForSeconds(2f);
-            enemyCount = FindObjectsOfType<Enemy>().Length;
-            Debug.Log("当前场上敌人数量: " + enemyCount);
-        }
-        if(enemyCount == 0){
-            ShowSuccessScreen();
-            Time.timeScale = 0;
-        }    
-    }
 
-    Transform[] ChoosePath(int wave){
-        if(wave == 0){
-            return path1;
+        int resEnemyCount = FindObjectsOfType<Enemy>().Length;
+        Debug.Log("Enemy Remaining: " + resEnemyCount);
+        while(resEnemyCount > 0)
+        {
+            yield return new WaitForSeconds(2f);
+            resEnemyCount = FindObjectsOfType<Enemy>().Length;
+            Debug.Log("Enemy Remaining: " + resEnemyCount);
         }
-        else if (wave == 1){
-            return path2;
-        }
-        else if (wave == 2){
-            return path3;
-        }
-        return path1;
+        
+        if(resEnemyCount == 0)  ShowSuccessScreen();
     }
 
     void ShowSuccessScreen()
     {
         Debug.Log("显示 Success 界面");
+        Time.timeScale = 0;
     }
 }
