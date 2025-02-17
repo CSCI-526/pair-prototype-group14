@@ -1,4 +1,5 @@
-# Yanbai Lu Update
+# Function Update
+## Yanbai Lu Update 2/16
 一些enemy相关功能更新：
 ### 索敌相关：
 暂时支持索敌离endTrigger最近的敌人，可切换离塔最近的（PlayerShooting 第40-41行）
@@ -11,3 +12,5 @@
 
 ### 其他：
 由于子弹是三角形但碰撞箱是矩形，导致略有不符。我修改了一定的碰撞箱，但依然没有达到完全符合。
+
+## Yanbai Lu Update 2/17
