@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public GameObject congratulationsText;
     [Header("怪物生成配置")]
     public GameObject enemyPrefab;
     public Transform spawnPoint;
@@ -22,6 +24,7 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1f; // 确保游戏速度恢复正常
+        congratulationsText.gameObject.SetActive(false);
         StartCoroutine(SpawnWaves());
     }
 
@@ -69,7 +72,16 @@ public class EnemySpawner : MonoBehaviour
     void ShowSuccessScreen()
     {
         Debug.Log("显示 Success 界面");
-        SceneManager.LoadScene("MainMenu"); // 游戏胜利后回到主菜单
+        Time.timeScale = 1f; // 确保返回主菜单前游戏恢复正常
+        congratulationsText.gameObject.SetActive(true);
+        // Invoke("LoadPanel", 1f);
+        // yield return new WaitForSeconds(2f);
+        // SceneManager.LoadScene("MainMenu"); // 游戏胜利后回到主菜单
+    }
+
+    void LoadPanel()
+    {
+        SceneManager.LoadScene("Panel"); // 游戏胜利后回到主菜单
     }
 
     public void EndGame()

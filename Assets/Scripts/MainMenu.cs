@@ -30,4 +30,32 @@ public class MainMenu : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
     }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // 重新加载当前场景
+    }
+
+    public void LoadPanel()
+    {
+        Debug.Log("Back to panel");
+
+        // 先卸载 `Game` 场景，确保它被完整刷新
+        if (SceneManager.GetSceneByName("Panel").isLoaded)
+        {
+            SceneManager.UnloadSceneAsync("Panel").completed += (op) =>
+            {
+                Debug.Log("Game 场景已卸载，重新加载...");
+                SceneManager.LoadScene("Panel");
+            };
+        }
+        else
+        {
+            SceneManager.LoadScene("Panel");
+        }
+    }
+
+    // public void test(){
+    //     ;
+    // }
 }
