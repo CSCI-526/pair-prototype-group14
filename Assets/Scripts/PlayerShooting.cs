@@ -20,25 +20,25 @@ public class PlayerShooting : MonoBehaviour
 
     void Shoot()
     {
-        // GameObject enemy = GameObject.FindWithTag("Enemy");
-        // float distance = Vector2.Distance(firePoint.position, enemy.transform.position);
-        GameObject enemy = GetClosestEnemyInRange(maxDistance);
+        GameObject enemy = GetEnemyInRange(maxDistance);
         if (enemy != null){
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             bullet.GetComponent<Bullet>().SetTarget(enemy.transform);
         }
     }
 
-    GameObject GetClosestEnemyInRange(float radius){
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius); // 获取范围内的所有碰撞体
+    GameObject GetEnemyInRange(float radius)
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius);
         GameObject closest = null;
         float minDistance = Mathf.Infinity;
 
         foreach (Collider2D col in colliders)
         {
-            if (col.CompareTag("Enemy")) // 确保是 "Enemy" 标签的对象
+            if (col.CompareTag("Enemy"))
             {
-                float distance = Vector2.Distance(transform.position, col.transform.position);
+                // float distance = Vector2.Distance(transform.position, col.transform.position);
+                float distance = Vector2.Distance(GameObject.Find("EndTrigger").transform.position, col.transform.position);
                 if (distance < minDistance)
                 {
                     minDistance = distance;
@@ -46,7 +46,6 @@ public class PlayerShooting : MonoBehaviour
                 }
             }
         }
-
         return closest;
     }
 }

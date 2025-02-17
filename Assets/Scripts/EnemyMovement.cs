@@ -12,15 +12,15 @@ public class Enemy : MonoBehaviour
 
     public float HP = 100f;
     
-    private Renderer enemyRenderer;
-    private Color startColor = HexToColor("#FF5733");
-    private Color endColor = HexToColor("#33FF57");
-    public float duration = 3.0f;
+    // private Renderer enemyRenderer;
+    // private Color startColor = HexToColor("#FF5733");
+    // private Color endColor = HexToColor("#33FF57");
+    // public float duration = 3.0f;
 
     void Start()
     {
-        enemyRenderer = transform.GetComponent<Renderer>();
-        enemyRenderer.material.color = Color.red;
+        // enemyRenderer = transform.GetComponent<Renderer>();
+        // enemyRenderer.material.color = Color.red;
     }
 
     void Update()
@@ -33,8 +33,6 @@ public class Enemy : MonoBehaviour
                 // HP -= 30;
             }
         } else {
-            // 到达终点，可以在这里添加触发事件（如扣血）等逻辑
-            // Destroy(gameObject);
             // Debug.Log(gameObject.name + " destroy");
         }
     }
@@ -70,8 +68,8 @@ public class Enemy : MonoBehaviour
     void DestroyEnemy()
     {
         Debug.Log(gameObject.name + " destroy animation");
-        float t = Mathf.PingPong(Time.time / duration, 1);
-        enemyRenderer.material.color = Color.Lerp(startColor, endColor, t);
+        // float t = Mathf.PingPong(Time.time / duration, 1);
+        // enemyRenderer.material.color = Color.Lerp(startColor, endColor, t);
         Destroy(gameObject);
         Debug.Log(gameObject.name + " destroy");
 
