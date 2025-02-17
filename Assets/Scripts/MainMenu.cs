@@ -5,14 +5,14 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame()
     {
-        Debug.Log("开始新游戏...");
+        Debug.Log("Start new game");
 
         // 先卸载 `Game` 场景，确保它被完整刷新
         if (SceneManager.GetSceneByName("Game").isLoaded)
         {
-            SceneManager.UnloadSceneAsync("Game").completed += (op) =>
+            SceneManager.UnloadSceneAsync("Game").completed+=(op) =>
             {
-                Debug.Log("Game 场景已卸载，重新加载...");
+                //Debug.Log("Game 场景已卸载，重新加载");
                 SceneManager.LoadScene("Game");
             };
         }
@@ -22,30 +22,32 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+
     public void QuitGame()
     {
-        Debug.Log("退出游戏");
+        Debug.Log("Quit game");
         Application.Quit();
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+        UnityEditor.EditorApplication.isPlaying=false;
 #endif
     }
 
     public void ReloadScene()
     {
+        Debug.Log("Reload current scene");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // 重新加载当前场景
     }
 
     public void LoadPanel()
     {
-        Debug.Log("Back to panel");
+        Debug.Log("Return to panel");
 
-        // 先卸载 `Game` 场景，确保它被完整刷新
+        // 先卸载 `Panel` 场景，确保它被完整刷新
         if (SceneManager.GetSceneByName("Panel").isLoaded)
         {
             SceneManager.UnloadSceneAsync("Panel").completed += (op) =>
             {
-                Debug.Log("Game 场景已卸载，重新加载...");
+                Debug.Log("Panel 场景已卸载，重新加载...");
                 SceneManager.LoadScene("Panel");
             };
         }
