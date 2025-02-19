@@ -12,10 +12,10 @@
 
 ### 其他：
 由于子弹是三角形但碰撞箱是矩形，导致略有不符。我修改了一定的碰撞箱，但依然没有达到完全符合。
-
+<br><br>
 ## Yanbai Lu Update 2/17
 ### UI
-Congratulation UI 更新，在游戏胜利后弹出，具有3个功能：
-1.restart game
-2.quit game
-3.return to panel
+Congratulation UI 更新，在游戏胜利后弹出，具有3个功能：<br>
+1.restart game<br>
+2.quit game<br>
+3.return to panel<br>
