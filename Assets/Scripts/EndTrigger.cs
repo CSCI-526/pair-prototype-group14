@@ -25,9 +25,8 @@ public class EndTrigger : MonoBehaviour
         if (health <= 0) return;
 
         health -= damage;
-        //Debug.Log("生命值减少，当前生命值: " + health);
-
-        UpdateHealthUI(); //更新UI
+        Debug.Log("生命值减少，当前生命值: " + health);
+        UpdateHealthUI();
 
         if (health <= 0) GameOver();
     }
@@ -39,7 +38,7 @@ public class EndTrigger : MonoBehaviour
         Time.timeScale=0;
         if (sorryYouLoseCanvas !=null)
         {
-            sorryYouLoseCanvas.SetActive(true); //显示失败界面
+            sorryYouLoseCanvas.SetActive(true);
         }
     }
 
@@ -47,7 +46,7 @@ public class EndTrigger : MonoBehaviour
     {
         if (healthText !=null)
         {
-            healthText.text ="Health " + health;
+            healthText.text ="Health: " + health;
         }
     }
 }
