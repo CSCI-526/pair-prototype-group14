@@ -1,7 +1,8 @@
 # Function Update
 ！！ 若git pull后因enemy Spawner未配置导致游戏无法运行，请参照如下图片右侧进行配置
-![Screenshot 2025-02-19 133716](https://github.com/user-attachments/assets/9e6a6bd8-90ea-4139-bd78-25dbacb5b1a4)
-(element3 未在截图内，配置同element1)
+![image](https://github.com/user-attachments/assets/afdce1dc-752a-4b2f-879f-bbdd451bf6e1)
+![image](https://github.com/user-attachments/assets/449d6044-9d0d-4916-a27f-d3b99ccdce57)
+
 ## Yanbai Lu Update 2/16
 一些enemy相关功能更新：
 ### 索敌相关：
