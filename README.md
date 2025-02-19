@@ -19,3 +19,10 @@ Congratulation UI 更新，在游戏胜利后弹出，具有3个功能：<br>
 1.restart game<br>
 2.quit game<br>
 3.return to panel<br>
+
+## Yanbai Lu Update 2/19
+enemy相关debug，并重新上线了2/16的功能2
+### debug
+1.解决了 wave2 怪物莫名旋转的问题<br>
+2.解决了 wave2 和 wave3 怪物在endTrigger附近互相碰撞的问题
+
