@@ -31,8 +31,8 @@ enemy相关debug，并重新上线了2/16的功能2
 2.解决了 wave2 和 wave3 怪物在endTrigger附近互相碰撞的问题
 
 ### 其他
-调整了sorry you lose的颜色，与congratulation区分
-调整了wayfinding的部分，使其更标准化
-调整了enemySpawner和EndTrigger的位置，使用户体验更佳
+调整了sorry you lose的颜色，与congratulation区分<br>
+调整了wayfinding的部分，使其更标准化<br>
+调整了enemySpawner和EndTrigger的位置，使用户体验更佳<br>
 
 
