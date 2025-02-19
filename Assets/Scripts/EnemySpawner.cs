@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
-using TMPro;// 引入 TextMeshPro 命名空间
+using TMPro;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -27,9 +27,9 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
-        Time.timeScale = 1f; // 确保游戏速度恢复正常
+        Time.timeScale = 1f; //确保游戏速度恢复正常
         congratulationsText.gameObject.SetActive(false);
-        UpdateWaveUI(totalWaves); // 初始化 UI
+        UpdateWaveUI(totalWaves); //初始化UI
         StartCoroutine(SpawnWaves());
     }
 
@@ -37,7 +37,7 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int wave =0; wave < totalWaves; wave++)
         {
-            UpdateWaveUI(totalWaves -wave); // 更新波次 UI
+            UpdateWaveUI(totalWaves -wave); //更新波次UI
 
             Transform[] selectedPath =ChoosePath(wave);
 
@@ -78,7 +78,7 @@ public class EnemySpawner : MonoBehaviour
 
     void ShowSuccessScreen()
     {
-        Debug.Log("显示Success界面");
+        //Debug.Log("显示Success界面");
         Time.timeScale =1f; //确保返回主菜单前游戏恢复正常
         congratulationsText.gameObject.SetActive(true);
     }

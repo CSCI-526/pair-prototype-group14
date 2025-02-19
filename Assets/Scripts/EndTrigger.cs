@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EndTrigger : MonoBehaviour
 {
-    public int health = 10;          //终点生命值
+    public int health =10;          //终点生命值
     private bool isGameOver =false; //防止重复触发 GameOver
 
     public TextMeshProUGUI healthText;  //生命值 UI 组件
