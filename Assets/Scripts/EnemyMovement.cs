@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     private int currentIndex = 0;
 
     public float HP = 100f;
+
+    public GameObject deathEffect;
     
     // private Renderer enemyRenderer;
     // private Color startColor = HexToColor("#FF5733");
@@ -43,7 +45,7 @@ public class Enemy : MonoBehaviour
         Debug.Log("Enemy HP: " + HP);
         if (HP <= 0)
         {
-            DestroyEnemy();
+            DestroyEnemy(true);
         }
     }
 
@@ -61,13 +63,17 @@ public class Enemy : MonoBehaviour
             }
             Debug.Log(gameObject.name + " make 1 damage");
 
-            DestroyEnemy();
+            DestroyEnemy(false);
         }
     }
 
-    void DestroyEnemy()
+    void DestroyEnemy(bool deathAnimation)
     {
-        Debug.Log(gameObject.name + " destroy animation");
+        if (deathAnimation)
+        {
+            Debug.Log(gameObject.name + " destroy animation");
+            Instantiate(deathEffect, transform.position, transform.rotation);
+        }
         // float t = Mathf.PingPong(Time.time / duration, 1);
         // enemyRenderer.material.color = Color.Lerp(startColor, endColor, t);
         Destroy(gameObject);

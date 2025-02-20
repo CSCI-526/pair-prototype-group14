@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
+    private GameObject closest = null;
     public GameObject bulletPrefab;
-    public Transform firePoint;
 
     public float fireRate = 0.5f;
     private float nextFireTime = 0f;
@@ -18,11 +18,23 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
+    void FixedUpdate()
+    {
+        
+        if (closest != null)
+        {
+            Transform target = closest.transform;
+            Vector3 dir = target.position - transform.position;
+            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+            transform.rotation  = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
+    }
+
     void Shoot()
     {
         GameObject enemy = GetEnemyInRange(maxDistance);
         if (enemy != null){
-            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
             bullet.GetComponent<Bullet>().SetTarget(enemy.transform);
         }
     }
@@ -30,7 +42,6 @@ public class PlayerShooting : MonoBehaviour
     GameObject GetEnemyInRange(float radius)
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius);
-        GameObject closest = null;
         float minDistance = Mathf.Infinity;
 
         foreach (Collider2D col in colliders)
