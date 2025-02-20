@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
             // {
             //     yield return null;
             // }
-            if (movesLeft > 0)
+            if (movesLeft > 0 && GameObject.FindGameObjectWithTag("Enemy") == null)
             {
                 if (inputFunction(KeyCode.UpArrow))
                 {
