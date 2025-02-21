@@ -11,11 +11,11 @@ public class PlayerShooting : MonoBehaviour
 
     void Update()
     {
-        if (Time.time >= nextFireTime)
-        {
-            Shoot();
-            nextFireTime = Time.time + fireRate;
-        }
+        // if (Time.time >= nextFireTime)
+        // {
+        //     Shoot();
+        //     nextFireTime = Time.time + fireRate;
+        // }
     }
 
     void FixedUpdate()
@@ -27,6 +27,11 @@ public class PlayerShooting : MonoBehaviour
             Vector3 dir = target.position - transform.position;
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
             transform.rotation  = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
+        if (Time.time >= nextFireTime)
+        {
+            Shoot();
+            nextFireTime = Time.time + fireRate;
         }
     }
 
@@ -41,6 +46,7 @@ public class PlayerShooting : MonoBehaviour
 
     GameObject GetEnemyInRange(float radius)
     {
+        closest = null;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius);
         float minDistance = Mathf.Infinity;
 
