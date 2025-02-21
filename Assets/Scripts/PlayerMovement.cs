@@ -111,6 +111,12 @@ public class PlayerMovement : MonoBehaviour
         UpdateMoveUI();
     }
 
+    public void resetMoves()
+    {
+        movesLeft = 0;
+        UpdateMoveUI();
+    }
+
     public void UpdateMoveUI()
     {
         if (moveText !=null)

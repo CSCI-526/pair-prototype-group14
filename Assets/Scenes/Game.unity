@@ -1061,7 +1061,7 @@ Transform:
   m_GameObject: {fileID: 462381693}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.38, y: 0.23, z: 0}
+  m_LocalPosition: {x: -14.38, y: 0.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3726,7 +3726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e52e47d82aaa6434ab0b32827cf3b0ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 5
   healthText: {fileID: 129899087}
   sorryYouLoseCanvas: {fileID: 255142120}
 --- !u!50 &1748695689
@@ -4519,7 +4519,7 @@ MonoBehaviour:
   gridSize: 1
   xBounds: 11
   yBounds: 2
-  movesLeft: 5
+  movesLeft: 0
   movesPerWave: 5
 --- !u!114 &1972607136
 MonoBehaviour:

@@ -15,7 +15,7 @@ public class EndTrigger : MonoBehaviour
         UpdateHealthUI();
         if (sorryYouLoseCanvas !=null)
         {
-            sorryYouLoseCanvas.SetActive(false);  //初始时隐藏失败界面
+            sorryYouLoseCanvas.SetActive(false);
         }
     }
 

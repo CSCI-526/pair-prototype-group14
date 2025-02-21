@@ -9,6 +9,7 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject player;
     private PlayerMovement moveScript;
+    private float moveTime;
     private int currWave = 0;
     private bool playingState = true;
     private bool waveActive = false;
@@ -18,6 +19,7 @@ public class EnemySpawner : MonoBehaviour
     public TextMeshProUGUI waveText;             // UI 组件 - 剩余波数
 
     [Header("怪物波次配置")]
+    // public float timeForMoving = 15f;
     public Wave[] enemyWaves;
     private int totalWaves;
 
@@ -28,7 +30,7 @@ public class EnemySpawner : MonoBehaviour
         public GameObject enemyPrefab;           // 敌人类型
         public int enemyCount = 5;               // 这一波的敌人数量
         public Transform spawnPoint;             // 敌人出生点
-        public float timeBetweenEnemies = 10f;  // 同一波内怪物生成的间隔
+        public float timeBetweenEnemies = 10f;   // 同一波内怪物生成的间隔
         public Transform[] path;                 // 敌人路径点
         public float timeAfterWave = 5f;         // 与下一波的间隔时间
     }
@@ -48,29 +50,36 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        if (GameObject.FindGameObjectWithTag("Enemy") == null)
+        if (currWave >= totalWaves && GameObject.FindGameObjectWithTag("Enemy") == null && playingState)
         {
+            playingState = false;
+            Invoke("ShowSuccessScreen", 0.1f);
+        }
+
+        if (0 < currWave && currWave < totalWaves && GameObject.FindGameObjectWithTag("Enemy") == null && waveActive)
+        {
+            moveScript.addMoves();
+            Debug.Log("addMove Triggered on wave " + currWave);
             waveActive = false;
+            moveTime = Time.time;
         }
 
         if (moveScript.movesLeft <= 0 && currWave < totalWaves && !waveActive)
         {
             StartCoroutine(SpawnWave());
             Debug.Log("waveActive: " + waveActive);
-            if (currWave < (totalWaves - 1))
-            {
-                moveScript.addMoves();
-            }
             currWave++;
-            
             UpdateWaveUI(totalWaves - currWave);
         }
 
-        if (currWave >= totalWaves && playingState && !waveActive)
-        {
-            playingState = false;
-            ShowSuccessScreen();
-        }
+        // if ((moveScript.movesLeft <= 0 || Time.time - moveTime > timeForMoving) && currWave < totalWaves && !waveActive)
+        // {
+        //     moveScript.resetMoves();
+        //     StartCoroutine(SpawnWave());
+        //     Debug.Log("waveActive: " + waveActive);
+        //     currWave++;
+        //     UpdateWaveUI(totalWaves - currWave);
+        // }
     }
 
     IEnumerator SpawnWave()
@@ -93,6 +102,10 @@ public class EnemySpawner : MonoBehaviour
             yield return new WaitForSeconds(waveConfig.timeBetweenEnemies);
             //Debug.Log("Spawn Enemy: " + i);
         }
+        // if (currWave < (totalWaves - 1))
+        // {
+        //     moveScript.addMoves();
+        // }
         // yield return new WaitForSeconds(waveConfig.timeAfterWave);
         //yield return null;
     }
